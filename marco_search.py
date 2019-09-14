@@ -17,7 +17,7 @@ class marcoSearch:
         return(translated_strings)
 
     def search_single_query(self, query: str) -> dict:
-        url_dict = []
+        url_dict = {}
         for lang in self.languages:
             url_dict[lang] = []
             curr_query = self.translate_string(query)
