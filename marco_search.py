@@ -13,7 +13,8 @@ class marcoSearch:
 
     def translate_string(self, list_of_strings: List[str] , destination_language: str) -> List[str]:
         translations = translator.translate(list_of_strings, dest = destination_language)
-        translated_strings = [s.text for s in translations]
+        #translated_strings = [s.text for s in translations]
+        translated_strings = translations.text
         return(translated_strings)
 
     def search_single_query(self, query: str) -> dict:
