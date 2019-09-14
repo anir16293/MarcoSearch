@@ -44,7 +44,7 @@ class marcoSearch:
         print('Retrieving URLs')
         url_dict = self.search_single_query(query)
         docs = [self.parse_page(url = u, translate = False) for u in url_dict['en']]
-        print(docs)
+        #print(docs)
         print('Translating pages')
         for lang in url_dict:
             if lang != 'en':
