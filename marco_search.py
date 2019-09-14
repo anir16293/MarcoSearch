@@ -3,6 +3,7 @@ from googlesearch import search
 import requests
 from bs4 import BeautifulSoup
 from typing import List
+import re
 
 class marcoSearch:
     def __init__(self, languages: List[str]) -> None:
@@ -31,6 +32,8 @@ class marcoSearch:
         page = requests.get(url = url)
         soup = BeautifulSoup(page.text, 'html.parser')
         texts = [v.get_text() for v in soup.find_all('p')]
+        texts = list(map(self.clean_text, texts))
+        texts = list(filter(lambda x: x != '', texts))
         if translate:
             translated_texts = self.translate_string(texts, destination_language = 'en')
             return(translated_texts)
@@ -41,8 +44,14 @@ class marcoSearch:
         print('Retrieving URLs')
         url_dict = self.search_single_query(query)
         docs = [self.parse_page(url = u, translate = False) for u in url_dict['en']]
+        print(docs)
         print('Translating pages')
         for lang in url_dict:
             if lang != 'en':
                 docs.extend(self.parse_page(url = u) for u in url_dict[lang])
         return(docs)
+
+    @staticmethod
+    def clean_text(html_text: str) -> str:
+        clean_text = re.sub('<.*>', '', html_text)
+        return(clean_text)
