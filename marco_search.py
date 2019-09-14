@@ -30,14 +30,16 @@ class marcoSearch:
         soup = BeautifulSoup(page.text, 'html.parser')
         texts = [v.get_text() for v in soup.find_all('p')]
         if translate:
-            translated_texts = self.translate_string(texts)
+            translated_texts = self.translate_string(texts, destination_language = 'en')
             return(translated_texts)
         else:
             return(texts)
 
     def search_query(self, query: str) -> List[str]:
+        print('Retrieving URLs')
         url_dict = self.search_single_query(query)
         docs = [self.parse_page(url = u, translate = False) for u in url_dict['en']]
+        print('Translating pages')
         for lang in url_dict:
             if lang != 'en':
                 docs.extend(self.parse_page(url = u) for u in url_dict[lang])
