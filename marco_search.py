@@ -15,7 +15,7 @@ class marcoSearch:
     def translate_string(self, list_of_strings: List[str] , destination_language: str) -> List[str]:
         if type(list_of_strings) != list:
             list_of_strings = [list_of_strings]
-        translations = translator.translate(list_of_strings, dest = destination_language)
+        translations = self.translator.translate(list_of_strings, dest = destination_language)
         translated_strings = [s.text for s in translations]
         #translated_strings = translations.text
         return(translated_strings)
