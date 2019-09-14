@@ -20,7 +20,7 @@ class marcoSearch:
         url_dict = {}
         for lang in self.languages:
             url_dict[lang] = []
-            curr_query = self.translate_string(query)
+            curr_query = self.translate_string(query, destination_language = lang)
             url_dict.extend(search(query= curr_query, tld='com', lang=lang, num= 10, stop= 10))
         return(url_dict)
 
