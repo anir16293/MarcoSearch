@@ -12,9 +12,11 @@ class marcoSearch:
             self.languages.append('en')
 
     def translate_string(self, list_of_strings: List[str] , destination_language: str) -> List[str]:
+        if type(list_of_strings) != list:
+            list_of_strings = [list_of_strings]
         translations = translator.translate(list_of_strings, dest = destination_language)
-        #translated_strings = [s.text for s in translations]
-        translated_strings = translations.text
+        translated_strings = [s.text for s in translations]
+        #translated_strings = translations.text
         return(translated_strings)
 
     def search_single_query(self, query: str) -> dict:
@@ -44,8 +46,3 @@ class marcoSearch:
             if lang != 'en':
                 docs.extend(self.parse_page(url = u) for u in url_dict[lang])
         return(docs)
-    
-    
-
-
-
