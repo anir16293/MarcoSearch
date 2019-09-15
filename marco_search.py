@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from typing import List
 import re
 import json
+import subprocess
 
 class marcoSearch:
     def __init__(self, languages: List[str]) -> None:
@@ -60,11 +61,14 @@ class marcoSearch:
         return(clean_text)
 
     @staticmethod
-    def get_marco_vectors(strings: List[str]) -> List[dict]:
-        query = 'curl https: // api.msturing.org/gen/encode - H "Ocp-Apim-Subscription-Key: 9b6108ed020a4e9e85449bd398f0fdd8" - -data \'{"queries":'
-        strings = ','.join(strings)
-        strings = '[' + strings + ']'
-        query = query + strings + '}\''
-        result = subprocess.check_output(st, shell=True)
+    def get_marco_vectors(strings_list: List[str]) -> List[dict]:
+        standard_query = 'curl https://api.msturing.org/gen/encode -H "Ocp-Apim-Subscription-Key: 9b6108ed020a4e9e85449bd398f0fdd8" --data \'{"queries": ["JHU Hackathon starts now!", "Microsoft Bing Turing team is here to help you"]}\''
+        strings = '" , "'.join(strings_list)
+        strings = '["' + strings + '"]'
+        query = re.sub('\[.*\]', strings, standard_query)
+        #query = query + strings + '}\ '.rstrip() + '\''
+        print(query)
+        result = subprocess.check_output(query, shell=True)
         result_json = json.loads(result)
+
         return(result_json)
