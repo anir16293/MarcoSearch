@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from typing import List
 import re
+import json
 
 class marcoSearch:
     def __init__(self, languages: List[str]) -> None:
@@ -57,3 +58,13 @@ class marcoSearch:
     def clean_text(html_text: str) -> str:
         clean_text = re.sub('<.*>', '', html_text)
         return(clean_text)
+
+    @staticmethod
+    def get_marco_vectors(strings: List[str]) -> List[dict]:
+        query = 'curl https: // api.msturing.org/gen/encode - H "Ocp-Apim-Subscription-Key: 9b6108ed020a4e9e85449bd398f0fdd8" - -data \'{"queries":'
+        strings = ','.join(strings)
+        strings = '[' + strings + ']'
+        query = query + strings + '}\''
+        result = subprocess.check_output(st, shell=True)
+        result_json = json.loads(result)
+        return(result_json)
