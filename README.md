@@ -1,6 +1,6 @@
 # MarcoSearch
 
-Winner of the Microsoft Marco track at HopHacks 2019.
+Winner of the Microsoft MARCO track at HopHacks 2019.
 
 MarcoSearch is an efficient way to get multi-perspective information on a topic by extracting information through multi-lingual online resources and translating them back to English.
 
